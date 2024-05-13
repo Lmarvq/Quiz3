@@ -4,6 +4,7 @@ import dicom2nifti as d2n
 import cv2 
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 
 dict__pacientes = {}
@@ -49,7 +50,6 @@ def Leer_Asignar_Info():
         dirN = input(r"Ingrese la dirección donde desea almacenar elementos Niftii: ")
         f = d2n.convert_directory(dirD, dirN)
         p.Add_IM_Niftii(f)
-        plt.imsave(dirN, f )
     else: 
         pass
     ds = pyd.dcmread(dirD)
@@ -68,8 +68,8 @@ def Leer_Asignar_Info():
     print("Los datos han sido guardados correctamente")
     op2 = int(input("¿Desea visualizar la imágen asociada al paciente?\n 1.Si\n 2.No\n Usted escogió: "))
     if op2 == 1:
-        Im = np.array(p.Obtener_IM_Dicom)
-        plt.plot(Im)
+        Im = np.array(d)
+        plt.imshow(Im)
         plt.show()
     if op2 ==2 : 
         pass
