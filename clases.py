@@ -1,7 +1,11 @@
 import pydicom as pyd
 import nilearn as nii
 import dicom2nifti as d2n
+import cv2 
 
+
+dict__pacientes = {}
+dict__imágenes = {}
 
 
 class Paciente():
@@ -25,33 +29,43 @@ class Paciente():
 
     def ObtenerNombre(self):
         return self.__nombre
-    def ObtenerNombre(self):
+    def ObtenerEdad(self):
         return self.__edad
-    def ObtenerNombre(self):
+    def ObtenerID(self):
         return self.__ID
-    def ObtenerNombre(self):
+    def Obtener_IM_Dicom(self):
         return self.__IM_DICOM
-    def ObtenerNombre(self):
+    def Obtener_IM_Niftii(self):
         return self.__IM_Niftii
 
 p = Paciente()
     
-def Leer_Info(self):
+def Leer_Asignar_Info(self):
     dirD = input(r"Ingrese la dirección del directorio Dicom")
-    dirN = input(r"Ingrese la dirección donde desea almacenar elementos Niftii")
+    op1 = int(input("¿Desea crear un elemento Niftii a partir del archivo anterior?:\n 1.Si\n 2.No\n Usted ingresó: "))
+    if op1 ==1:
+        dirN = input(r"Ingrese la dirección donde desea almacenar elementos Niftii")
+        f = d2n.convert_directory(dirD, dirN)
+        p.Add_IM_Niftii(f)
+    else: 
+        pass
     ds = pyd.dcmread(dirD)
     n = ds.PatientName
     e = ds.PatientAge
     i = ds.PatientID
     d = ds.pixel_array
-    f = d2n.convert_directory(dirD, dirN)
+    
     p.AddNombre(n)
     p.AddEdad(e)
     p.AddID(i)
     p.Add_IM_Dicom(d)
-    p.Add_IM_Niftii(f)
+    
+    dict__pacientes[p.ObtenerID] = p
+    dict__imágenes[p.ObtenerID] = [p.ObtenerID, p.Obtener_IM_Dicom]
     
 
-    
-
-
+def Asignar_Im(self):
+    dir = input(r"Ingrese la dirección de la imágen JPG o PNG que desea registrar")
+    llave = input("Ingrese la clave que desea asignar a dicha imágen")
+    Img = cv2.imread(dir)
+    dict__imágenes[llave]= Img
