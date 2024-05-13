@@ -2,7 +2,7 @@ from clases import *
 def main():
     while True:
         print("Bienvenido al sistema X!\nDestinado para la manipulación de imágenes y archivos DICOM")
-        menu = int(input("Acciones a ejecutar:\n 1.Carga de datos de un paciente(DICOM)\n 2.Carga de imágenes JPG o PNG\n 3.Rotación de imágenes\n 4.Binarización de imágenes\n 5.Salir"))
+        menu = int(input("Acciones a ejecutar:\n 1.Carga de datos de un paciente(DICOM)\n 2.Carga de imágenes JPG o PNG\n 3.Rotación de imágenes\n 4.Binarización de imágenes\n 5.Salir\n Usted escogió: "))
         if menu == 1:
             Leer_Asignar_Info()
         if menu == 2:
@@ -20,3 +20,5 @@ def main():
             else:
                 print("Por favor ingrese una opción válida")
                 continue
+            
+main()

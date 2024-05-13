@@ -2,6 +2,8 @@ import pydicom as pyd
 import nilearn as nii
 import dicom2nifti as d2n
 import cv2 
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 dict__pacientes = {}
@@ -40,13 +42,14 @@ class Paciente():
 
 p = Paciente()
     
-def Leer_Asignar_Info(self):
-    dirD = input(r"Ingrese la dirección del directorio Dicom")
+def Leer_Asignar_Info():
+    dirD = input(r"Ingrese la dirección del directorio Dicom: ")
     op1 = int(input("¿Desea crear un elemento Niftii a partir del archivo anterior?:\n 1.Si\n 2.No\n Usted ingresó: "))
     if op1 ==1:
-        dirN = input(r"Ingrese la dirección donde desea almacenar elementos Niftii")
+        dirN = input(r"Ingrese la dirección donde desea almacenar elementos Niftii: ")
         f = d2n.convert_directory(dirD, dirN)
         p.Add_IM_Niftii(f)
+        plt.imsave(dirN, f )
     else: 
         pass
     ds = pyd.dcmread(dirD)
@@ -61,10 +64,17 @@ def Leer_Asignar_Info(self):
     p.Add_IM_Dicom(d)
     
     dict__pacientes[p.ObtenerID] = p
-    dict__imágenes[p.ObtenerID] = [p.ObtenerID, p.Obtener_IM_Dicom]
-    
+    dict__imágenes[p.ObtenerID] = [p.Obtener_IM_Dicom]
+    print("Los datos han sido guardados correctamente")
+    op2 = int(input("¿Desea visualizar la imágen asociada al paciente?\n 1.Si\n 2.No\n Usted escogió: "))
+    if op2 == 1:
+        Im = np.array(p.Obtener_IM_Dicom)
+        plt.plot(Im)
+        plt.show()
+    if op2 ==2 : 
+        pass
 
-def Asignar_Im(self):
+def Asignar_Im():
     dir = input(r"Ingrese la dirección de la imágen JPG o PNG que desea registrar")
     llave = input("Ingrese la clave que desea asignar a dicha imágen")
     Img = cv2.imread(dir)
