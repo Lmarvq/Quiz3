@@ -1,5 +1,5 @@
 import pydicom as pyd
-import nilearn as ni
+import nilearn as nii
 import dicom2nifti as d2n
 
 
