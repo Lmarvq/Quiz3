@@ -71,11 +71,19 @@ def Leer_Asignar_Info():
         Im = np.array(d)
         plt.imshow(Im)
         plt.show()
+        pass
     if op2 ==2 : 
         pass
 
 def Asignar_Im():
-    dir = input(r"Ingrese la dirección de la imágen JPG o PNG que desea registrar")
-    llave = input("Ingrese la clave que desea asignar a dicha imágen")
+    dir = input(r"Ingrese la dirección de la imágen JPG o PNG que desea registrar: ")
+    llave = input("Ingrese la clave que desea asignar a dicha imágen: ")
     Img = cv2.imread(dir)
     dict__imágenes[llave]= Img
+    op2 = int(input("¿Desea visualizar la imágen asociada al paciente?\n 1.Si\n 2.No\n Usted escogió: "))
+    if op2 == 1:
+        plt.imshow(Img)
+        plt.show()
+        pass
+    if op2 ==2 : 
+        pass
